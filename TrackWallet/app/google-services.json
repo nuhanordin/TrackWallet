@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "622302085827",
+    "project_id": "track-wallet",
+    "storage_bucket": "track-wallet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622302085827:android:c5da36b2afa79f44d39876",
+        "android_client_info": {
+          "package_name": "com.example.trackwallet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyOmefeVz120MVeFkFko0OAixGVKjLDZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
