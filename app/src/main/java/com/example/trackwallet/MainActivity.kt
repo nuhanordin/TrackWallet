@@ -1,42 +1,53 @@
 package com.example.trackwallet
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.trackwallet.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var textUsername: TextView
-    lateinit var textEmail: TextView
-    lateinit var buttonLogout: Button
+    private lateinit var binding: ActivityMainBinding
 
-    val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        textUsername = findViewById(R.id.username)
-        textEmail = findViewById(R.id.email)
-        buttonLogout = findViewById(R.id.buttonLogout)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val firebaseUser = firebaseAuth.currentUser
-        if (firebaseUser != null) {
-            textUsername.text = firebaseUser.displayName
-            textEmail.text = firebaseUser.email
-        } else {
+        if (firebaseAuth.currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+            return
         }
 
-        buttonLogout.setOnClickListener {
-            firebaseAuth.signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+        if (savedInstanceState == null) {
+            replaceFragment(Home())
+        }
+
+        binding.bottomNav.setOnItemReselectedListener {
+            when (it.itemId) {
+                R.id.home -> replaceFragment(Home())
+                // R.id.add -> replaceFragment(Add())
+                // R.id.statistics -> replaceFragment(Statistics())
+                R.id.profile -> replaceFragment(Profile())
+                else -> {
+                }
+            }
+            true
         }
 
 
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 }
