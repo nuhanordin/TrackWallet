@@ -50,6 +50,9 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill in the fields", LENGTH_SHORT).show()
             }
         }
+        buttonRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun processLogin() {
